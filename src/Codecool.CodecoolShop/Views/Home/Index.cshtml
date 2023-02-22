@@ -1,0 +1,60 @@
+@using System.IO;
+@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    string path = @"wwwroot\img\home";
+    DirectoryInfo d = new DirectoryInfo(path);
+    FileInfo[] files = d.GetFiles();
+
+    string path2 = @"wwwroot\img\chategories"; 
+    DirectoryInfo e = new DirectoryInfo(path2);
+    FileInfo[] categories = e.GetFiles();
+
+    string filename = "";
+
+}
+
+
+
+
+<img src="~/img/mainImg/kitchen-2400367_960_720.jpg" class="mainImage" style="max-height: 450px;min-width: 1100px;" />
+<h2 class="text-capitalize text-center text-black-50 mt-5 mb-5">Categories</h2>
+        <div class="container">
+
+@{
+    @foreach (FileInfo filepath in categories)
+    {
+         filename = filepath.Name.Replace(".jpg", "");
+         filename = char.ToUpper(filename[0]) + filename.Substring(1);
+
+        <div class="col-lg-3 col-lg-3 btn" style="display: inline-block; max-width: 350px; height: 350px">
+            <div class="card">
+                <div class="card-body">
+                        <a href="@Url.Action("Index","Product",new {searchCategory = @filename })" name="searchCategory" value="@filename"><img src="~/img/chategories/@filepath.Name" style="height: 250px; width: 250px; align-self: center; padding-top: 10px"></a>
+                </div>
+                <div class="card-footer">
+                        <a href="@Url.Action("Index","Product",new {searchCategory = @filename })" name="searchCategory" value="@filename">@filename</a>
+                </div> 
+            </div>
+        </div>
+    }
+}
+         
+        
+</div>
+<h4 class="text-capitalize text-left text-black-50 mt-5 mb-5">Get more inspirations from our gallery</h4>
+
+
+
+
+ <div id="gallery" >
+@foreach (FileInfo filepath in files)
+{
+        <img src="~/img/home/@filepath.Name" />
+}
+</div>
+
+
+    
+

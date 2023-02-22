@@ -1,0 +1,19 @@
+<h2 class="text-center" style="text-align: center;">Hello {{MEMBER_NAME}}!</h2>
+  <div style="margin-left: 20%;margin-right: 20%;padding:5px;color:black;">
+                            <hr />
+                            <p></p>
+                            <p>Your order is comfirmed! :)</p>
+                            <p>In 2-3 woking days your items will be ready to ship!</p>
+                            <p>When they are ready, we will send another email about it.</p>
+                            <p>Best regards,</p>
+                            <p>AEKI Team</p>
+                            <p></p>
+                            <p>Your email: {{MEMBER_EMAIL}}</p>
+                            <p>Subject: {{TITLE}}</p>
+                            <p>Your ordered products:</p>
+                            <p>{{MEMBER_MESSAGE}}</p>
+                            <hr />
+                            <p>This is an automatic message, please do not answer to it.</p>
+                            <p></p>
+                            <h2 style="text-align: center; color:#0454a3;">AEKI Inc. <span style="color:black;">- we'll create your dream home</span></h2>
+                            </div>

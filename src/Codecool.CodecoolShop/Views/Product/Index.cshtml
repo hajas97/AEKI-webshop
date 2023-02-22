@@ -1,0 +1,95 @@
+﻿@model List<Codecool.CodecoolShop.Models.Product>
+
+@{
+    ViewData["Title"] = "Product Page";
+    var suppliers = new List<string>() { "Malm", "Kallax", "Dekad", "Lack", "Strandomon", "Nolmyra", "Hektar", "Markus"};
+   
+    var filteredProducts = new List<Codecool.CodecoolShop.Models.Product>();
+    
+    var lists = Model;
+
+}
+
+@*@{<script>      
+        function myFunction() {
+              $("button").click(function () {
+                  if (@filteredProducts.Count > 0)
+                  {
+                        @foreach (var element in Model)
+                    {
+                        
+                            filteredProducts.Remove(element);
+                        
+                    }
+                  }
+                  
+                  //alert(this.id);
+                  @filterBy = this.id;
+                  document.getElementById("filter").innerHTML = @filterBy;
+                  @foreach (var element in Model)
+                    {
+                        if(element.Supplier.Name == filterBy)
+                        {
+                            filteredProducts.Add(element);
+                        }
+                    }
+                    
+              });
+        @lists = @filteredProducts.ToString(); //errort dob!!!!!!!!!!!!!!!!!!!!!!!!!!
+        }
+</script>}*@
+
+
+
+
+<h1 class="text-capitalize text-center text-black-50 mt-5 mb-5">@ViewData["Title"]</h1>
+
+<div class="col-lg-8 col-lg-8 text-center mb-3" style="display: inline-block; max-width: 100%;">
+    @foreach (var supplier in suppliers)
+    {
+        <form asp-action="Index" method="get" style="display:inline-block">
+        <input type="text" name="searchString" value="@supplier" hidden>
+        <button id="@supplier" type="submit" class="btn btn-light ml-2" >@supplier</button>
+        @*onclick = "myFunction()"*@
+        </form>
+    }
+</div>
+
+
+
+
+
+<div class="container">
+
+    @foreach (var element in lists)
+    {
+        
+
+        
+        <div class="col-lg-3 col-lg-3" style="display: inline-block; max-width: 350px; height: 350px; margin-bottom:150px;">
+            <div class="card text-center ">
+                <img src="~/img/products/@(element.ProductCategory.Department)/@(element.Name).jpg" style="height: 50%; width: 50%; align-self: center; padding-top: 10px">
+
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        @element.Name
+                       @* Product
+                        @{ var num = Model.IndexOf(element) + 1;}
+                        @num*@
+                    </h5>
+                    @*<h5 class="card-title">@element.Name</h5>*@
+                    <div class="text-left">
+                        <p class="card-text">@element.Description.</p>
+                        <p class="card-text">Category: @element.ProductCategory.Department</p>
+                        <p class="card-text">Supplier: @element.Supplier.Name</p>
+                        <p class="card-text text-center"><strong>Price: @element.DefaultPrice.ToString("C2")</strong></p>
+                    </div>
+                    <a href="@Url.Action("AddProductToCart","Cart",new {productId = element.Id})" type="button" class="btn btn-primary mt-3">Add To Cart</a>
+                  
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>

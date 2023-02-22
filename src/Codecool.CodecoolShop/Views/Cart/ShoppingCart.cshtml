@@ -1,0 +1,110 @@
+﻿
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var Dictionary = (Dictionary<Product, int>)ViewData["dict"];
+    var itemPrice = 0.0;
+    var itemsPrice = 0.0;
+    var totalPrice = 0.0;
+    var extension = ".jpg";
+    var currency = "";
+}
+
+@{
+
+
+
+}
+
+
+
+@{
+<div class="container mt-5">
+        @if (Model.Count != 0)
+    {
+            
+                            <div class="col-md-11">
+                                <div class="p-2">
+                                    <h4>Shopping cart</h4>
+                                    </div>
+                                    </div>
+                                    
+            @foreach (var element in Dictionary)
+            {
+                itemPrice = (double)element.Key.DefaultPrice;
+                itemsPrice = (double)element.Key.DefaultPrice * element.Value;
+                totalPrice += (double)itemsPrice;
+                currency = element.Key.Currency;
+
+                <div class="container mt-5 mb-5 shadow">
+                        <div class="d-flex justify-content-center row">
+                            <div class="col-md-11">
+                                <div class="p-2">
+                                    
+                        
+                    </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
+                        <div class="mr-1"><img class="rounded" src="~/img/products/@element.Key.ProductCategory.Department/@element.Key.Name@extension" width="70"></div>
+                                            <div class="d-flex flex-column align-items-center product-details">
+                                                <span class="font-weight-bold">@element.Key.Name</span>
+                            <div class="d-flex flex-row product-desc">
+                                                    <div class="size mr-1"><span class="text-grey">Base Price:</span><span class="font-weight-bold">&nbsp;@itemPrice @element.Key.Currency</span></div>
+                                
+                            </div>
+                        </div>
+                                <div class="d-flex flex-row align-items-center qty">
+                                    <a href="@Url.Action("ChangeCart","Cart",new {productId = element.Key.Id, grow = false })"><i class="fa fa-minus text-danger"></i></a>
+                                    <h5 class="text-grey mt-1 mr-1 ml-1">@element.Value db</h5><a href="@Url.Action("ChangeCart","Cart",new {productId = element.Key.Id, grow = true })"><i class="fa fa-plus text-success"></i></a>
+                                </div>
+                        <div>
+                                                <h5 class="text-grey">@itemsPrice @element.Key.Currency</h5>
+                        </div>
+                                <div class="d-flex align-items-center"><a href="@Url.Action("ChangeCart","Cart",new {productId = element.Key.Id, grow = false, delete = true })"><i class="fa fa-trash mb-1 text-danger"></i></a></div>
+                    </div>
+                            <div class="color bg-white" style="padding: 20px 0 5px 0"><span class="text-grey ml-3">Product Description: @element.Key.Description</span></div>
+                     
+                    
+                    </div>
+                    </div>
+                    </div>
+                
+            
+        }
+            <div class="container mt-5 mb-5">
+                <hr>
+
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded text-center">
+                    <input type="text" class="form-control border-0 gift-card" placeholder="Total Price:  @totalPrice @currency" readonly>
+                    <form action="@Url.Action("ClearCart","Cart")">
+                        <button class="btn btn-outline-warning btn-sm ml-2" type="submit">Delete Cart</button>
+                    </form>
+                </div>
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><a type="button" href="@Url.Action("CheckoutItems","Cart",new {price = totalPrice})" class="btn btn-warning btn-block btn-lg ml-2 pay-button">Proceed to Pay</a></div>
+            </div>
+
+
+
+
+
+
+
+    }
+    else
+    {
+            <div class="container h-100 w-100 mt-5">
+                <div class="row align-items-center h-100 w-100">
+                    <div class="col-11 mx-auto w-100">
+                        <div class="jumbotron" style="background-color:#fff">
+                            <h1 class="text-center text-capitalize text-dark mt-5">You have nothing in your cart!</h1>
+                            <h3 class="text-center text-black-50">Go and browse our huge variety products</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    }
+
+</div>
+}
